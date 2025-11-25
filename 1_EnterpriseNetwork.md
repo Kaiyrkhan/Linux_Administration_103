@@ -21,9 +21,45 @@
 
 ### A1, A2 – Access Layer Switch-ті конфигурациялау
 ```shell
+Password: Huawei@123
+
 <Huawei> undo terminal monitor
 <Huawei> system-view
 [Huawei] sysname A1
+[A1] 
+
+[A1] vlan batch 111 112
+[A1] display vlan
+
+[A1] port-group group-member g1/0/1 g1/0/2
+[A1] port link-type trunk
+[A1] port trunk allow-pass vlan 111 112
+
+[A1] display port vlan
+
+[A1] stp region-configuration
+[A1] region-name LAN1
+[A1] instance 1 vlan 111
+[A1] instance 2 vlan 112
+[A1] check region-configuration
+
+[A1] quit
+
+[A1] display stp instance 1 brief
+[A1] display stp instance 2 brief
+
+[A2] display stp instance 1 brief
+[A2] display stp instance 2 brief
+
+interface g1/0/3
+port link-type access
+port default vlan 111
+
+interface g1/0/4
+port link-type access
+port default vlan 112
+
+display vlan
 ```
 
 ### D1, D2 – Distribution Layer Switch-ті конфигурациялау
