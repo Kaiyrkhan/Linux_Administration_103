@@ -23,3 +23,23 @@
 ```shell
 Huawei> 
 ```
+
+### D1, D2 – Distribution Layer Switch-ті конфигурациялау
+```shell
+Huawei> 
+```
+
+### C1 – Core Layer Switch-ті конфигурациялау
+```shell
+Huawei> 
+```
+
+### SRV-D1 – Distribution Layer Switch-ті конфигурациялау
+```shell
+Huawei> 
+```
+
+### EdgeR1 – Edge Router-ді конфигурациялау
+```shell
+Huawei> 
+```
