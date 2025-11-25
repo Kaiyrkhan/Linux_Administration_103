@@ -51,15 +51,15 @@ Password: Huawei@123
 [A2] display stp instance 1 brief
 [A2] display stp instance 2 brief
 
-interface g1/0/3
-port link-type access
-port default vlan 111
+[A1] interface g1/0/3
+[A1] port link-type access
+[A1] port default vlan 111
 
-interface g1/0/4
-port link-type access
-port default vlan 112
+[A1] interface g1/0/4
+[A1] port link-type access
+[A1] port default vlan 112
 
-display vlan
+[A1] display vlan
 ```
 
 ### D1, D2 – Distribution Layer Switch-ті конфигурациялау
