@@ -35,16 +35,73 @@ Confirm Password: Huawei@123
 <Huawei> undo terminal monitor
 <Huawei> system-view
 [Huawei] sysname D1
+[D1]
 
-[Huawei] vlan batch 11 12
-[Huawei] display vlan
+[D1] vlan batch 111 112
+[D1] display vlan
 
-[Huawei] interface Eth-Trunk 1
-[Huawei] port link-type trunk
-[Huawei] port trunk allow-pass vlan 11 12
-[Huawei] mode lacp
+[D1] interface Eth-Trunk 1
+[D1] port link-type trunk
+[D1] port trunk allow-pass vlan 111 112
+[D1] mode lacp
 
-[Huawei] display port vlan
+[D1] display port vlan
+
+[D1] int g1/0/11
+[D1] eth-trunk 1
+[D1] display this
+
+[D1] int g1/0/12
+[D1] eth-trunk 1
+[D1] display this
+
+[D1] display int brief
+
+[D2] display eth-trunk 1
+[D2] display int eth-trunk 1
+
+[D1] port-group group-member g1/0/2 g1/0/3
+[D1] port link-type trunk
+[D1] port trunk allow-pass vlan 111 112
+
+[D1] display port vlan
+
+[D1] display stp
+[D1] stp enable
+[D1] stp mode mstp
+
+[D1] stp region-configuration
+[D1] region-name LAN1
+[D1] instance 1 vlan 111
+[D1] instance 2 vlan 112
+[D1] active region-configuration
+[D1] check region-configuration
+
+[D1] quit
+
+---------------------
+ҚОСЫМША АҚПАРАТ!
+
+revision-level 1
+stp global enable
+---------------------
+
+[D1] stp instance 1 root primary
+[D1] stp instance 2 root secondary
+
+[D2] stp instance 2 root primary
+[D2] stp instance 1 root secondary
+```
+
+```shell
+Please configure the login password (8-16)
+Enter Password: Huawei@123
+Confirm Password: Huawei@123
+
+<Huawei> undo terminal monitor
+<Huawei> system-view
+[Huawei] sysname D2
+[D2]
 ```
 
 ### C1 – Core Layer Switch-ті конфигурациялау
