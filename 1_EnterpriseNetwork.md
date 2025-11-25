@@ -21,25 +21,49 @@
 
 ### A1, A2 – Access Layer Switch-ті конфигурациялау
 ```shell
-Huawei> 
+<Huawei> undo terminal monitor
+<Huawei> system-view
+[Huawei] sysname A1
 ```
 
 ### D1, D2 – Distribution Layer Switch-ті конфигурациялау
 ```shell
-Huawei> 
+Please configure the login password (8-16)
+Enter Password: Huawei@123
+Confirm Password: Huawei@123
+
+<Huawei> undo terminal monitor
+<Huawei> system-view
+[Huawei] sysname D1
+
+[Huawei] vlan batch 11 12
+[Huawei] display vlan
+
+[Huawei] interface Eth-Trunk 1
+[Huawei] port link-type trunk
+[Huawei] port trunk allow-pass vlan 11 12
+[Huawei] mode lacp
+
+[Huawei] display port vlan
 ```
 
 ### C1 – Core Layer Switch-ті конфигурациялау
 ```shell
-Huawei> 
+<Huawei> undo terminal monitor
+<Huawei> system-view
+[Huawei] sysname C1
 ```
 
 ### SRV-D1 – Distribution Layer Switch-ті конфигурациялау
 ```shell
-Huawei> 
+<Huawei> undo terminal monitor
+<Huawei> system-view
+[Huawei] sysname SRV-D1
 ```
 
 ### EdgeR1 – Edge Router-ді конфигурациялау
 ```shell
-Huawei> 
+<Huawei> undo terminal monitor
+<Huawei> system-view
+[Huawei] sysname EdgeR1
 ```
