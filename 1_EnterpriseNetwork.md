@@ -347,27 +347,14 @@ display vrrp
 **D1 Switch**
 
 ```shell
-# Create VLANs
-vlan 4
- quit
-display vlan
-
-# Configure Access Port
-interface GigabitEthernet0/0/5
- port link-type access
- port default vlan 4
-display port vlan
-
-# Create VLANIF interface
-interface vlanif 4
+interface g1/0/1
  ip address 10.1.1.106 30
  quit
 ```
 
 ```shell
-# Create Loopback interface
-interface Loopback 50
- ip address 50.3.3.3 32
+interface Loopback 50            // Create Loopback interface
+ ip address 50.7.7.7 32
  quit
 ```
 
@@ -376,13 +363,13 @@ display ip int brief
 ```
 
 ```shell
-ospf 1 router-id 50.3.3.3
+ospf 1 router-id 50.7.7.7
  area 0
  network 10.1.1.104 0.0.0.3
  network 172.16.111.0 0.0.0.255
  network 172.16.112.0 0.0.0.255
  network 10.1.50.0 0.0.0.255
- network 50.3.3.3 0.0.0.0
+ network 50.7.7.7 0.0.0.0
  quit
  quit
 
@@ -392,27 +379,14 @@ display cu | begin ospf
 **D2 Switch**
 
 ```shell
-# Create VLANs
-vlan 8
- quit
-display vlan
-
-# Configure Access Port
-interface GigabitEthernet0/0/5
- port link-type access
- port default vlan 8
-display port vlan
-
-# Create VLANIF interface
-interface vlanif 8
+interface g1/0/1
  ip address 10.1.1.110 30
  quit
 ```
 
 ```shell
-# Create Loopback interface
-interface Loopback 50
- ip address 50.4.4.4 32
+interface Loopback 50            // Create Loopback interface
+ ip address 50.8.8.8 32
  quit
 ```
 
@@ -421,13 +395,13 @@ display ip int brief
 ```
 
 ```shell
-ospf 1 router-id 50.4.4.4
+ospf 1 router-id 50.8.8.8
  area 0
  network 10.1.1.108 0.0.0.3
  network 172.16.111.0 0.0.0.255
  network 172.16.112.0 0.0.0.255
  network 10.1.50.0 0.0.0.255
- network 50.4.4.4 0.0.0.0
+ network 50.8.8.8 0.0.0.0
  quit
  quit
 
@@ -437,17 +411,20 @@ display ospf peer brief
 **C1 Switch**
 
 ```shell
-interface g0/0/0
+interface g1/0/1
  ip address 10.1.1.102 30
  quit
-interface g0/0/1
+interface g1/0/2
  ip address 10.1.1.105 30
  quit
-interface g0/0/2
+interface g1/0/3
  ip address 10.1.1.109 30
  quit
+interface g1/0/4
+ ip address 10.1.1.113 30
+ quit
 interface Loopback 50
- ip address 50.2.2.2 32
+ ip address 50.3.3.3 32
  quit
 
 display ip int brief
@@ -456,12 +433,13 @@ display ip int brief
 ```shell
 display ip int brief
 
-ospf 1 router-id 50.2.2.2
+ospf 1 router-id 50.3.3.3
  area 0
  network 10.1.1.100 0.0.0.3
  network 10.1.1.104 0.0.0.3
  network 10.1.1.108 0.0.0.3
- network 50.2.2.2 0.0.0.0
+ network 10.1.1.112 0.0.0.3
+ network 50.3.3.3 0.0.0.0
  quit
  quit
 
@@ -471,11 +449,18 @@ display ospf peer brief
 **SRV-D1**
 
 ```shell
-interface g0/0/0
- ip address 172.16.128.67 24
+interface g1/0/1
+ ip address 10.1.1.114 30
  quit
+
+# Create Loopback interface
 interface Loopback 50
  ip address 50.5.5.5 32
+ quit
+
+# Create VLANIF interface
+interface VLANIF 50
+ ip address 10.10.10.1 24
  quit
 
 display ip int brief
@@ -486,7 +471,8 @@ display ip int brief
 
 ospf 1 router-id 50.5.5.5
  area 0
- network 172.16.128.0 0.0.0.255
+ network 10.1.1.112 0.0.0.3
+ network 10.10.10.0 0.0.0.255
  network 50.5.5.5 0.0.0.0
  quit
  quit
