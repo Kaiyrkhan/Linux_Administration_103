@@ -2,7 +2,6 @@
 
 ### Network Topology
 ![Topology Enterprise Network Design](images/)  
-[Download Link for PNETLab Topology File](Topology)  
 
 ## Configure DHCP Server on Debian
 
