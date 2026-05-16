@@ -532,7 +532,9 @@ ospf 1 router-id 50.1.1.1
 display ospf peer brief
 ```
 
-## Step 7 – Configure DHCP Server on Linux
+## Step 7 – Configure DHCP Server
+
+**Configure DHCP Server on Huawei VRP**
 
 ```shell
 dhcp enable
@@ -560,36 +562,63 @@ interface g0/0/0
  quit
 ```
 
-Verify Configuration
 ```shell
+# Verify Configuration
+
 display ip pool
-display ip pool name VLAN111
 display dhcp server statistics
 ```
 
-## Step 8 – Configure DHCP Relay Agent
+**Configure DHCP Server on Linux**
 
-**D1 and D2 Switch**
+```shell
+```
+
+## Step 8 – Configure DHCP Relay Agent (for PNETLab Environment)
+
+**Method #1 - D1 and D2 Switch**
 
 ```shell
 dhcp enable
 
 interface vlanif 111
  dhcp select relay
- dhcp relay server-ip 172.16.128.67
+ dhcp relay binding server ip 10.10.10.67
  quit
 
 interface vlanif 112
  dhcp select relay
- dhcp relay server-ip 172.16.128.67
+ dhcp relay binding server ip 10.10.10.67
  quit
+
+commit
 ```
 
 ```shell
-PC1> ipconfig
-PC2> ipconfig
-PC3> ipconfig
-PC4> ipconfig /renew
+display dhcp relay interface Vlanif111
+display dhcp relay interface Vlanif112
+```
+
+**Method #2 - D1 and D2 Switch**
+
+```shell
+dhcp enable
+
+dhcp relay server group DHCP-Servers
+ server 10.10.10.67
+ server 10.10.10.68
+ quit
+commit
+
+interface vlanif 111
+ dhcp select relay
+ dhcp relay binding server group DHCP-Servers
+ quit
+interface vlanif 112
+ dhcp select relay
+ dhcp relay binding server group DHCP-Servers
+ quit
+commit
 ```
 
 ## Step 9 – Configure NAT (Easy IP)
