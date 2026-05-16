@@ -571,8 +571,7 @@ display dhcp server statistics
 
 **Configure DHCP Server on Linux**
 
-![DHCP Server on Debian](2_DHCP.md)  
-[DHCP Server on Debian](2_DHCP.md)  
+[DHCP Server on Linux](2_DHCP.md)  
 
 ## Step 8 – Configure DHCP Relay Agent (for PNETLab Environment)
 
