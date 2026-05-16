@@ -571,8 +571,7 @@ display dhcp server statistics
 
 **Configure DHCP Server on Linux**
 
-```shell
-```
+![DHCP Server on Debian](Kaiyrkhan/Huawei-Datacom_PNETLab/2_DHCP.md)  
 
 ## Step 8 – Configure DHCP Relay Agent (for PNETLab Environment)
 
