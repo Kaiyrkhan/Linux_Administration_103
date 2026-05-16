@@ -140,6 +140,37 @@ display port vlan
 **SRV-D1 Switch**
 
 ```shell
+# Create VLANs
+vlan 10
+
+commit
+
+display vlan
+```
+
+```shell
+# Configure Access Port
+
+interface g1/0/2
+ port link-type access
+ port default vlan 10
+ quit
+
+interface g1/0/3
+ port link-type access
+ port default vlan 10
+ quit
+
+interface g1/0/4
+ port link-type access
+ port default vlan 10
+ quit
+
+...
+
+commit
+
+display port vlan
 ```
 
 ## Step 3 – Configure Link Aggregation. Eth-Trunk
@@ -265,13 +296,13 @@ display stp instance 2 brief
 ```shell
 interface vlanif 111
  ip address 172.16.111.1 24
- vrrp vrid 111 virtual-ip 172.16.111.254
- vrrp vrid 111 priority 105
+ vrrp vrid 1 virtual-ip 172.16.111.254
+ vrrp vrid 1 priority 105
  quit
 
 interface vlanif 112
  ip address 172.16.112.1 24
- vrrp vrid 112 virtual-ip 172.16.112.254
+ vrrp vrid 2 virtual-ip 172.16.112.254
  quit
 
 interface vlanif 50
@@ -279,6 +310,8 @@ interface vlanif 50
  vrrp vrid 50 virtual-ip 10.1.50.254
  vrrp vrid 50 priority 105
  quit
+
+commit
 
 display ip int brief
 display vrrp brief
@@ -289,19 +322,21 @@ display vrrp brief
 ```shell
 interface vlanif 111
  ip address 172.16.111.2 24
- vrrp vrid 111 virtual-ip 172.16.111.254
+ vrrp vrid 1 virtual-ip 172.16.111.254
  quit
 
 interface vlanif 112
  ip address 172.16.112.2 24
- vrrp vrid 112 virtual-ip 172.16.112.254
- vrrp vrid 112 priority 105
+ vrrp vrid 2 virtual-ip 172.16.112.254
+ vrrp vrid 2 priority 105
  quit
 
 interface vlanif 50
  ip address 10.1.50.2 24
  vrrp vrid 50 virtual-ip 10.1.50.254
  quit
+
+commit
 
 display ip int brief
 display vrrp brief
