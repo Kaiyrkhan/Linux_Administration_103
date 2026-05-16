@@ -14,7 +14,7 @@
 | H1, H2, H3, H4 | End Device                             |
 
 ## Scenario
-1) Configure VLAN (Create VLANs and Access Port, Trunk Port)  
+1) Configure VLAN (Create VLANs and Access/Trunk Ports)  
    Link Aggregation. Eth-Trunk  
    MSTP (Multiple Spanning Tree Protocol)  
 2) VRRP (Virtual Router Redundancy Protocol)
