@@ -20,7 +20,7 @@
 11) TFTP
 12) ...
 
-## Step 1 – Configure Access Layer Switches (A1, A2)
+## Configure Access Layer Switches (A1, A2)
 
 Configure Device Hostname
 ```shell
@@ -73,7 +73,7 @@ commit
 display port vlan
 ```
 
-## Step 2 – Configure Aggregation Layer Switches (D1, D2)
+## Configure Aggregation Layer Switches (D1, D2)
 
 Configure Device Hostname
 ```shell
