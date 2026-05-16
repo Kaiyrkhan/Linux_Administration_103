@@ -146,7 +146,7 @@ display int brief
 display eth-trunk 1
 ```
 
-Configure MSTP
+Configure MSTP (Multiple Spanning Tree Protocol)
 ```shell
 display stp
 
@@ -184,23 +184,463 @@ stp instance 1 root secondary
 stp instance 2 root primary
 ```
 
-### C1 – Core Layer Switch-ті конфигурациялау
+## A1 and A2 Switch
+
+Configure MSTP (Multiple Spanning Tree Protocol)
+
 ```shell
-<Huawei> undo terminal monitor
-<Huawei> system-view
-[Huawei] sysname C1
+display stp
+
+stp enable
+stp mode mstp
+
+commit
+
+display stp
 ```
 
-### SRV-D1 – Distribution Layer Switch-ті конфигурациялау
 ```shell
-<Huawei> undo terminal monitor
-<Huawei> system-view
-[Huawei] sysname SRV-D1
+stp region-configuration
+ region-name HQ1
+ revision-level 1
+ instance 1 vlan 111 50
+ instance 2 vlan 112
+ check region-configuration
+ quit
+
+commit
+
+display cu | begin stp
 ```
 
-### EdgeR1 – Edge Router-ді конфигурациялау
+Verify Configuration
+
 ```shell
-<Huawei> undo terminal monitor
-<Huawei> system-view
-[Huawei] sysname EdgeR1
+display stp vlan 111
+display stp vlan 112
+display stp vlan 50
+```
+немесе
+```shell
+display stp instance 1 brief
+display stp instance 2 brief
+```
+
+## Configure VRRP (Virtual Router Redundancy Protocol)
+
+D1 Switch
+```shell
+interface vlanif 111
+ ip address 172.16.111.1 24
+ vrrp vrid 111 virtual-ip 172.16.111.254
+ vrrp vrid 111 priority 105
+ quit
+
+interface vlanif 112
+ ip address 172.16.112.1 24
+ vrrp vrid 112 virtual-ip 172.16.112.254
+ quit
+
+interface vlanif 50
+ ip address 10.1.50.1 24
+ vrrp vrid 50 virtual-ip 10.1.50.254
+ vrrp vrid 50 priority 105
+ quit
+
+display ip int brief
+display vrrp brief
+```
+
+D2 Switch
+```shell
+interface vlanif 111
+ ip address 172.16.111.2 24
+ vrrp vrid 111 virtual-ip 172.16.111.254
+ quit
+
+interface vlanif 112
+ ip address 172.16.112.2 24
+ vrrp vrid 112 virtual-ip 172.16.112.254
+ vrrp vrid 112 priority 105
+ quit
+
+interface vlanif 50
+ ip address 10.1.50.2 24
+ vrrp vrid 50 virtual-ip 10.1.50.254
+ quit
+
+display ip int brief
+display vrrp brief
+```
+
+## Configure Single-Area OSPF
+
+D1 Switch
+
+```shell
+# Create VLANs
+vlan 4
+ quit
+display vlan
+
+# Configure Access Port
+interface GigabitEthernet0/0/5
+ port link-type access
+ port default vlan 4
+display port vlan
+
+# Create VLANIF interface
+interface vlanif 4
+ ip address 10.1.1.106 30
+ quit
+```
+
+```shell
+# Create Loopback interface
+interface Loopback 50
+ ip address 50.3.3.3 32
+ quit
+```
+
+```shell
+display ip int brief
+```
+
+```shell
+ospf 1 router-id 50.3.3.3
+ area 0
+ network 10.1.1.104 0.0.0.3
+ network 172.16.111.0 0.0.0.255
+ network 172.16.112.0 0.0.0.255
+ network 10.1.50.0 0.0.0.255
+ network 50.3.3.3 0.0.0.0
+ quit
+ quit
+
+display cu | begin ospf
+```
+
+D2 Switch
+
+```shell
+# Create VLANs
+vlan 8
+ quit
+display vlan
+
+# Configure Access Port
+interface GigabitEthernet0/0/5
+ port link-type access
+ port default vlan 8
+display port vlan
+
+# Create VLANIF interface
+interface vlanif 8
+ ip address 10.1.1.110 30
+ quit
+```
+
+```shell
+# Create Loopback interface
+interface Loopback 50
+ ip address 50.4.4.4 32
+ quit
+```
+
+```shell
+display ip int brief
+```
+
+```shell
+ospf 1 router-id 50.4.4.4
+ area 0
+ network 10.1.1.108 0.0.0.3
+ network 172.16.111.0 0.0.0.255
+ network 172.16.112.0 0.0.0.255
+ network 10.1.50.0 0.0.0.255
+ network 50.4.4.4 0.0.0.0
+ quit
+ quit
+
+display ospf peer brief
+```
+
+C1 Switch
+```shell
+# Configure Device Hostname
+undo terminal monitor
+system-view
+sysname C1
+```
+
+```shell
+interface g0/0/0
+ ip address 10.1.1.102 30
+ quit
+interface g0/0/1
+ ip address 10.1.1.105 30
+ quit
+interface g0/0/2
+ ip address 10.1.1.109 30
+ quit
+interface Loopback 50
+ ip address 50.2.2.2 32
+ quit
+
+display ip int brief
+```
+
+```shell
+display ip int brief
+
+ospf 1 router-id 50.2.2.2
+ area 0
+ network 10.1.1.100 0.0.0.3
+ network 10.1.1.104 0.0.0.3
+ network 10.1.1.108 0.0.0.3
+ network 50.2.2.2 0.0.0.0
+ quit
+ quit
+
+display ospf peer brief
+```
+
+EdgeR1 Router
+```shell
+# Configure Device Hostname
+undo terminal monitor
+system-view
+sysname EdgeR1
+```
+
+```shell
+interface g0/0/0
+ ip address 10.1.1.101 30
+ quit
+interface g0/0/2
+ ip address 172.16.128.1 24
+ quit
+interface g0/0/1
+ ip address 192.168.137.254 24
+ quit
+interface Loopback 50
+ ip address 50.1.1.1 32
+ quit
+
+display ip int brief
+```
+
+```shell
+ping 192.168.137.1
+ Request time out
+```
+Windows+R ➜ Turn off Windows Defender Firewall  
+![images](images/windows_firewall_on_to_off.png)
+```shell
+ping 192.168.137.1
+ Reply from 192.168.137.1: bytes=56 Sequence=2 ttl=128 time=10 ms
+```
+
+```shell
+display ip int brief
+
+ospf 1 router-id 50.1.1.1
+ area 0
+ network 10.1.1.100 0.0.0.3
+ network 172.16.128.0 0.0.0.255
+ network 50.1.1.1 0.0.0.0
+ quit
+ quit
+
+display ospf peer brief
+```
+
+DHCP Router
+```shell
+undo terminal monitor
+system-view
+sysname DHCP
+```
+
+```shell
+interface g0/0/0
+ ip address 172.16.128.67 24
+ quit
+interface Loopback 50
+ ip address 50.5.5.5 32
+ quit
+
+display ip int brief
+```
+
+```shell
+display ip int brief
+
+ospf 1 router-id 50.5.5.5
+ area 0
+ network 172.16.128.0 0.0.0.255
+ network 50.5.5.5 0.0.0.0
+ quit
+ quit
+
+display ospf peer brief
+```
+
+## Configure DHCP Server
+```shell
+dhcp enable
+
+ip pool VLAN111
+ network 172.16.111.0 mask 24
+ gateway-list 172.16.111.254
+ dns-list 8.8.8.8
+ excluded-ip-address 172.16.111.1 172.16.111.10
+ excluded-ip-address 172.16.111.251 172.16.111.253
+ lease day 5
+ quit
+
+ip pool VLAN112
+ network 172.16.112.0 mask 24
+ gateway-list 172.16.112.254
+ dns-list 172.16.128.53
+ excluded-ip-address 172.16.112.1 172.16.112.10
+ excluded-ip-address 172.16.112.251 172.16.112.253
+ lease day 5
+ quit
+
+interface g0/0/0
+ dhcp select global
+ quit
+```
+
+Verify Configuration
+```shell
+display ip pool
+display ip pool name VLAN111
+display dhcp server statistics
+```
+
+DHCP Relay Agent (D1 and D2 Switch)
+```shell
+dhcp enable
+
+interface vlanif 111
+ dhcp select relay
+ dhcp relay server-ip 172.16.128.67
+ quit
+
+interface vlanif 112
+ dhcp select relay
+ dhcp relay server-ip 172.16.128.67
+ quit
+```
+
+```shell
+<DHCP> display dhcp server statistics
+
+DHCP Server Statistics:
+ 
+ Client Request          : 8
+  Dhcp Discover          : 4
+  Dhcp Request           : 4
+  Dhcp Decline           : 0
+  Dhcp Release           : 0
+  Dhcp Inform            : 0
+
+  Server Reply           : 8
+  Dhcp Offer             : 4
+  Dhcp Ack               : 4
+  Dhcp Nak               : 0
+  Bad Messages           : 0 
+```
+
+```shell
+PC1> ipconfig
+PC2> ipconfig
+PC3> ipconfig
+PC4> ipconfig /renew
+```
+
+## Configure NAT (Easy IP)
+
+EdgeR1
+
+```shell
+ping 192.168.137.1
+ Reply from 192.168.137.1: bytes=56 Sequence=2 ttl=128 time=10 ms
+
+ping 8.8.8.8
+ Request time out
+```
+
+Default Static Route
+```shell
+ip route-static 0.0.0.0 0.0.0.0 192.168.137.1
+
+display cu | include static
+```
+
+```shell
+ping 8.8.8.8
+ Reply from 8.8.8.8: bytes=56 Sequence=1 ttl=107 time=90 ms
+```
+
+Advertise the Default Route
+```shell
+ospf 1
+ default-route-advertise
+ quit
+```
+
+```shell
+<EdgeR1> display ip routing-table
+
+Destination/Mask   Proto   Pre   Cost   Flags   NextHop         Interface
+       0.0.0.0/0   Static  60    0      RD      192.168.137.1   GigabitEthernet 0/0/1
+```
+
+```shell
+<C1> display ip routing-table
+Destination/Mask   Proto   Pre   Cost   Flags   NextHop         Interface
+       0.0.0.0/0   O_ASE   150   1      D       10.1.1.101      GigabitEthernet 0/0/0
+
+<C1> display ospf routing
+ Routing for ASEs
+ Destination        Cost      Type       Tag         NextHop         AdvRouter
+ 0.0.0.0/0          1         Type2      1           10.1.1.101      50.1.1.1
+```
+
+```shell
+acl 2000
+ rule permit source 172.16.111.0 0.0.0.255
+ rule permit source 172.16.112.0 0.0.0.255
+ quit
+
+int g0/0/1
+ nat outbound 2000
+ quit
+```
+
+Verify Configuration
+```shell
+display cu section acl
+display nat outbound
+```
+
+```shell
+PC1> ping 8.8.8.8
+PC2> ping 8.8.8.8
+PC3> ping 8.8.8.8
+PC4> ping 8.8.8.8
+ From 8.8.8.8: bytes=32 seq=3 ttl=105 time=156 ms
+```
+```shell
+PC1> ping google.com
+PC3> ping google.com
+ From 142.250.181.238: bytes=32 seq=1 ttl=106 time=156 ms
+```
+
+NAT Table
+```shell
+[EdgeR1] display nat session all verbose
 ```
