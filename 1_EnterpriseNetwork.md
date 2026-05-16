@@ -569,7 +569,9 @@ display ip pool
 display dhcp server statistics
 ```
 
-**[Configure DHCP Server on Linux](2_DHCP.md)**  
+**Configure DHCP Server on Linux**
+
+[Configure DHCP Server on Linux](2_DHCP.md)  
 
 ## Step 8 – Configure DHCP Relay Agent (for PNETLab Environment)
 
