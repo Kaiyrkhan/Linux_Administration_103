@@ -15,7 +15,7 @@
 
 ## Scenario
 1) Configure VLAN (Create VLANs and Access Port, Trunk Port)  
-   LACP Link Aggregation. Eth-Trunk  
+   Link Aggregation. Eth-Trunk  
    MSTP (Multiple Spanning Tree Protocol)  
 2) VRRP (Virtual Router Redundancy Protocol)
 3) Single-Area OSPF
@@ -28,6 +28,133 @@
 10) FTP
 11) TFTP
 12) ...
+
+## Step 1 – Configure Device Hostname
+
+```shell
+system-view
+sysname A1
+
+commit
+```
+
+## Step 2 – Configure VLAN (Create VLANs and Access/Trunk Ports)
+
+**A1 and A2 Switch**
+
+```shell
+# Create VLANs
+vlan batch 111 112 50
+
+commit
+
+display vlan
+```
+
+```shell
+# Configure Access Port
+
+interface g1/0/3
+ port link-type access
+ port default vlan 111
+ quit
+
+interface g1/0/4
+ port link-type access
+ port default vlan 112
+ quit
+
+commit
+
+display port vlan
+```
+
+```shell
+# Configure Trunk Port and Allowed VLANs
+
+interface g1/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
+
+interface g1/0/2
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
+
+commit
+
+display port vlan
+```
+
+**D1 and D2 Switch**
+
+```shell
+# Create VLANs
+vlan batch 111 112 50
+
+commit
+
+display vlan
+```
+
+```shell
+# Configure Trunk Port and Allowed VLANs
+
+interface g1/0/2
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
+
+interface g1/0/3
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
+
+commit
+
+display port vlan
+```
+
+**SRV-D1 Switch**
+
+```shell
+```
+
+## Step 3 – Configure Link Aggregation. Eth-Trunk
+
+**D1 and D2 Switch**
+
+```shell
+interface Eth-Trunk 1                                          // Create Eth-Trunk interface
+ port link-type trunk                                          // Trunk Port
+ port trunk allow-pass vlan 111 112 50                         // Allowed VLANs         
+ mode lacp-static                                              // Link Aggregation Mode
+ quit
+
+commit
+```
+
+```shell
+# Add a Port to the Eth-Trunk
+
+interface g1/0/11
+ eth-trunk 1
+ quit
+interface g1/0/12
+ eth-trunk 1
+ quit
+
+commit
+
+display int brief
+```
+
+```shell
+display eth-trunk 1
+```
+
+---
 
 ## Configure Access Layer Switches (A1, A2)
 
