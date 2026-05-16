@@ -1,5 +1,9 @@
 # Huawei-Based Enterprise Network Design and Implementation / Huawei құрылғылары негізінде корпоративті желіні жобалау және конфигурациялау
 
+### Network Topology
+![Topology Enterprise Network Design](images/Topology_PNETLab_EnterpriseNetworkDesign_HQ1_v1_Huawei.png)
+[Download Link for PNETLab Topology File](Topology/Topology_EnterpriseNetworkDesign_HQ1_v1_Huawei.zip)
+
 ## Scenario
 1) Configure VLAN (Create VLANs and Access Port, Trunk Port)  
    LACP Link Aggregation. Eth-Trunk  
@@ -16,129 +20,159 @@
 11) TFTP
 12) ...
 
-### Корпоративті желінің топологиясы
-![Topology Enterprise Network Design](images/Topology_PNETLab_EnterpriseNetworkDesign_HQ1_v1_Huawei.png)
-[Download Link for PNETLab Topology File](Topology/Topology_EnterpriseNetworkDesign_HQ1_v1_Huawei.zip)
+## Step 1 – Configure Access Layer Switches (A1, A2)
 
-### A1, A2 – Access Layer Switch-ті конфигурациялау
+Configure Device Hostname
 ```shell
-Password: Huawei@123
+system-view
+sysname A1
 
-<Huawei> undo terminal monitor
-<Huawei> system-view
-[Huawei] sysname A1
-[A1] 
-
-[A1] vlan batch 111 112
-[A1] display vlan
-
-[A1] port-group group-member g1/0/1 g1/0/2
-[A1] port link-type trunk
-[A1] port trunk allow-pass vlan 111 112
-
-[A1] display port vlan
-
-[A1] stp region-configuration
-[A1] region-name LAN1
-[A1] instance 1 vlan 111
-[A1] instance 2 vlan 112
-[A1] check region-configuration
-
-[A1] quit
-
-[A1] display stp instance 1 brief
-[A1] display stp instance 2 brief
-
-[A2] display stp instance 1 brief
-[A2] display stp instance 2 brief
-
-[A1] interface g1/0/3
-[A1] port link-type access
-[A1] port default vlan 111
-
-[A1] interface g1/0/4
-[A1] port link-type access
-[A1] port default vlan 112
-
-[A1] display vlan
+commit
 ```
 
-### D1, D2 – Distribution Layer Switch-ті конфигурациялау
+Create VLANs
 ```shell
-Please configure the login password (8-16)
-Enter Password: Huawei@123
-Confirm Password: Huawei@123
+vlan batch 111 112 50
 
-<Huawei> undo terminal monitor
-<Huawei> system-view
-[Huawei] sysname D1
-[D1]
+commit
 
-[D1] vlan batch 111 112
-[D1] display vlan
+display vlan
+```
 
-[D1] interface Eth-Trunk 1
-[D1] port link-type trunk
-[D1] port trunk allow-pass vlan 111 112
-[D1] mode lacp
+Configure Access Port
+```shell
+interface g1/0/3
+ port link-type access
+ port default vlan 111
+ quit
 
-[D1] display port vlan
+interface g1/0/4
+ port link-type access
+ port default vlan 112
+ quit
 
-[D1] int g1/0/11
-[D1] eth-trunk 1
-[D1] display this
+commit
 
-[D1] int g1/0/12
-[D1] eth-trunk 1
-[D1] display this
+display port vlan
+```
 
-[D1] display int brief
+Configure Trunk Port and Allowed VLANs
+```shell
+interface g1/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
 
-[D2] display eth-trunk 1
-[D2] display int eth-trunk 1
+interface g1/0/2
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
 
-[D1] port-group group-member g1/0/2 g1/0/3
-[D1] port link-type trunk
-[D1] port trunk allow-pass vlan 111 112
+commit
 
-[D1] display port vlan
+display port vlan
+```
 
-[D1] display stp
-[D1] stp enable
-[D1] stp mode mstp
+## Step 2 – Configure Aggregation Layer Switches (D1, D2)
 
-[D1] stp region-configuration
-[D1] region-name LAN1
-[D1] instance 1 vlan 111
-[D1] instance 2 vlan 112
-[D1] active region-configuration
-[D1] check region-configuration
+Configure Device Hostname
+```shell
+system-view
+sysname D1
+commit
+```
 
-[D1] quit
+Create VLANs
+```shell
+vlan batch 111 112 50
 
----------------------
-ҚОСЫМША АҚПАРАТ!
+commit
 
-revision-level 1
-stp global enable
----------------------
+display vlan
+```
 
-[D1] stp instance 1 root primary
-[D1] stp instance 2 root secondary
+Configure Trunk Port and Allowed VLANs
+```shell
+interface g1/0/2
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
 
-[D2] stp instance 2 root primary
-[D2] stp instance 1 root secondary
+interface g1/0/3
+ port link-type trunk
+ port trunk allow-pass vlan 111 112 50
+ quit
+
+commit
+
+display port vlan
+```
+
+Configure LACP Link Aggregation
+```shell
+interface Eth-Trunk 1                                          // Create Eth-Trunk
+ port link-type trunk                                          // Trunk Port
+ port trunk allow-pass vlan 111 112 50                         // Allowed VLANs         
+ mode lacp-static                                              // Link Aggregation Mode
+ quit
+
+commit
+```
+
+Add a Port to the Eth-Trunk
+```shell
+interface g1/0/11
+ eth-trunk 1
+ quit
+interface g1/0/12
+ eth-trunk 1
+ quit
+
+commit
+
+display int brief
 ```
 
 ```shell
-Please configure the login password (8-16)
-Enter Password: Huawei@123
-Confirm Password: Huawei@123
+display eth-trunk 1
+```
 
-<Huawei> undo terminal monitor
-<Huawei> system-view
-[Huawei] sysname D2
-[D2]
+Configure MSTP
+```shell
+display stp
+
+stp enable
+stp mode mstp
+
+commit
+
+display stp
+```
+
+```shell
+stp region-configuration
+ region-name HQ1
+ revision-level 1
+ instance 1 vlan 111 50
+ instance 2 vlan 112
+ check region-configuration
+ quit
+
+commit
+
+display cu | begin stp
+```
+
+```shell
+# D1 Switch
+stp instance 1 root primary
+stp instance 2 root secondary
+```
+
+```shell
+# D2 Switch
+stp instance 1 root secondary
+stp instance 2 root primary
 ```
 
 ### C1 – Core Layer Switch-ті конфигурациялау
