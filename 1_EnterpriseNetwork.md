@@ -448,8 +448,6 @@ display ip int brief
 ```
 
 ```shell
-display ip int brief
-
 ospf 1 router-id 50.3.3.3
  area 0
  network 10.1.1.100 0.0.0.3
@@ -484,8 +482,6 @@ display ip int brief
 ```
 
 ```shell
-display ip int brief
-
 ospf 1 router-id 50.5.5.5
  area 0
  network 10.1.1.112 0.0.0.3
