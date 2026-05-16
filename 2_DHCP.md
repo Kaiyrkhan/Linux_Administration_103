@@ -1,8 +1,8 @@
 # DHCP Server on Linux
 
 ### Network Topology
-![Topology Enterprise Network Design](images/)
-[Download Link for PNETLab Topology File](Topology)
+![Topology Enterprise Network Design](images/)  
+[Download Link for PNETLab Topology File](Topology)  
 
 ## DHCP Server on Debian
 
