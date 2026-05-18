@@ -1,7 +1,7 @@
 # Configure DHCP Server on Linux
 
 ### Network Topology
-![Topology Enterprise Network Design](images/)  
+![Topology Enterprise Network Design](images/Topology_PNETLab_EnterpriseNetworkDesign_HQ1_v1_Huawei.png)  
 
 ## Configure DHCP Server on Debian
 
