@@ -476,7 +476,7 @@ interface Loopback 50
  quit
 
 # Create VLANIF interface
-interface VLANIF 50
+interface VLANIF 10
  ip address 10.10.10.1 24
  quit
 
