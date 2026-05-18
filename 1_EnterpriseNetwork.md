@@ -27,7 +27,9 @@
 9) HTTP
 10) FTP
 11) TFTP
-12) ...
+12) RADIUS
+13) TACACS+
+14) LDAP
 
 ## Step 1 – Configure Device Hostname
 
