@@ -236,6 +236,7 @@ display eth-trunk 1
 
 ```shell
 display stp
+ Protocol Status: Disabled
 
 stp enable
 stp mode mstp
@@ -275,6 +276,7 @@ stp instance 2 root primary
 
 ```shell
 display stp
+ Protocol Status: Disabled
 
 stp enable
 stp mode mstp
