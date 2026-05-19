@@ -543,8 +543,6 @@ interface Loopback 50
  ip address 50.1.1.1 32
  quit
 
-commit
-
 display ip int brief
 ```
 
@@ -562,8 +560,6 @@ ospf 1 router-id 50.1.1.1
  network 50.1.1.1 0.0.0.0
  quit
  quit
-
-commit
 
 display ospf peer brief
 ```
@@ -596,8 +592,6 @@ ip pool VLAN112
 interface g0/0/0
  dhcp select global
  quit
-
-commit
 ```
 
 ```shell
