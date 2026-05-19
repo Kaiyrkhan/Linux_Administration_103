@@ -90,11 +90,11 @@ CTRL+L
 ```
 
 ```shell
-$ sudo systemctl status isc-dhcp-server
 $ sudo systemctl start isc-dhcp-server
+$ sudo systemctl status isc-dhcp-server
 
-$ sudo systemctl is-enabled isc-dhcp-server
 $ sudo systemctl enable isc-dhcp-server
+$ sudo systemctl is-enabled isc-dhcp-server
 ```
 
 ```shell
