@@ -101,18 +101,18 @@ $ sudo systemctl is-enabled isc-dhcp-server
 $ sudo nano /etc/dhcp/dhcpd.conf
 
 subnet 172.16.111.0 netmask 255.255.255.0 {
-    range 172.16.111.11 172.16.111.250;
-    option routers 172.16.111.254;
+  range 172.16.111.11 172.16.111.250;
+  option routers 172.16.111.254;
     host h1 {
-        hardware ethernet 50:91:6a:00:0d:00;
-        fixed-address 172.16.111.8;
-        }
+      hardware ethernet 50:91:6a:00:0d:00;
+      fixed-address 172.16.111.8;
     }
+}
 
 subnet 172.16.112.0 netmask 255.255.255.0 {
-    range 172.16.112.11 172.16.112.250;
-    option routers 172.16.112.254;
-    }
+  range 172.16.112.11 172.16.112.250;
+  option routers 172.16.112.254;
+}
 
 CTRL+O, ENTER, CTRL+X
 CTRL+L
