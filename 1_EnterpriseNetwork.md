@@ -750,12 +750,12 @@ int g0/0/2
  quit
 ```
 
-Verify Configuration
 ```shell
 display cu section acl
 display nat outbound
 ```
 
+Verify Configuration
 ```shell
 student@h1:~$ ping -c4 8.8.8.8
 student@h2:~$ ping -c4 8.8.8.8
