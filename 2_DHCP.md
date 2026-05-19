@@ -168,3 +168,8 @@ student@h4:~$ ip address
 student@h4:~$ ip route
 student@h4:~$ cat /etc/resolv.conf
 ```
+
+```shell
+# DHCP Server
+student@dhcp:~$ cat /var/lib/dhcp/dhcpd.leases
+```
