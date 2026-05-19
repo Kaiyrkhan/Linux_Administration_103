@@ -725,14 +725,14 @@ ospf 1
 ```
 
 ```shell
-<EdgeR1> display ip routing-table
+[EdgeR1] display ip routing-table
 
 Destination/Mask   Proto   Pre   Cost   Flags   NextHop         Interface
        0.0.0.0/0   Static  60    0      RD      10.0.137.1   GigabitEthernet 0/0/2
 ```
 
 ```shell
-<C1> display ip routing-table
+[C1] display ip routing-table
 Destination/Mask   Proto   Pre   Cost   Flags   NextHop         Interface
        0.0.0.0/0   O_ASE   150   1      D       10.1.1.101      GigabitEthernet 1/0/1
 ```
