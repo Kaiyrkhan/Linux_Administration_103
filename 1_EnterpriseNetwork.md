@@ -662,6 +662,8 @@ student@h1:~$ sudo dhclient -v ens3
 student@h1:~$ ip address
 student@h1:~$ ip route
 student@h1:~$ cat /etc/resolv.conf
+
+student@h1:~$ sudo systemctl restart networking
 ```
 
 ```shell
@@ -669,6 +671,8 @@ H2 - Ubuntu
 student@h2:~$ ip address
 student@h2:~$ ip route
 student@h2:~$ resolvectl status
+
+student@h2:~$ sudo netplan apply
 ```
 
 ```shell
@@ -676,6 +680,8 @@ H3 - Rocky
 student@h3:~$ ip address
 student@h3:~$ ip route
 student@h3:~$ cat /etc/resolv.conf
+
+student@h3:~$ sudo systemctl restart NetworkManager
 ```
 
 ```shell
@@ -683,10 +689,12 @@ H4 - openEuler
 student@h4:~$ ip address
 student@h4:~$ ip route
 student@h4:~$ cat /etc/resolv.conf
+
+student@h4:~$ sudo systemctl restart NetworkManager
 ```
 
 ```shell
-# DHCP Server
+DHCP Server
 student@dhcp:~$ cat /var/lib/dhcp/dhcpd.leases
 ```
 
