@@ -239,6 +239,7 @@ display stp
  Protocol Status: Disabled
 
 stp enable
+ Warning: The global STP state will be changed. Continue? [Y/N]: Y
 stp mode mstp
 
 commit
@@ -279,6 +280,7 @@ display stp
  Protocol Status: Disabled
 
 stp enable
+ Warning: The global STP state will be changed. Continue? [Y/N]: Y
 stp mode mstp
 
 commit
