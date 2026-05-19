@@ -386,6 +386,8 @@ interface Loopback 50            // Create Loopback interface
 ```
 
 ```shell
+commit
+
 display ip int brief
 ```
 
@@ -399,6 +401,8 @@ ospf 1 router-id 50.7.7.7
  network 50.7.7.7 0.0.0.0
  quit
  quit
+
+commit
 
 display cu | begin ospf
 ```
@@ -419,6 +423,8 @@ interface Loopback 50            // Create Loopback interface
 ```
 
 ```shell
+commit
+
 display ip int brief
 ```
 
@@ -432,6 +438,8 @@ ospf 1 router-id 50.8.8.8
  network 50.8.8.8 0.0.0.0
  quit
  quit
+
+commit
 
 display ospf peer brief
 ```
@@ -459,6 +467,8 @@ interface Loopback 50
  ip address 50.3.3.3 32
  quit
 
+commit
+
 display ip int brief
 ```
 
@@ -472,6 +482,8 @@ ospf 1 router-id 50.3.3.3
  network 50.3.3.3 0.0.0.0
  quit
  quit
+
+commit
 
 display ospf peer brief
 ```
@@ -494,6 +506,8 @@ interface VLANIF 10
  ip address 10.10.10.1 24
  quit
 
+commit
+
 display ip int brief
 ```
 
@@ -505,6 +519,8 @@ ospf 1 router-id 50.5.5.5
  network 50.5.5.5 0.0.0.0
  quit
  quit
+
+commit
 
 display ospf peer brief
 ```
@@ -527,6 +543,8 @@ interface Loopback 50
  ip address 50.1.1.1 32
  quit
 
+commit
+
 display ip int brief
 ```
 
@@ -544,6 +562,8 @@ ospf 1 router-id 50.1.1.1
  network 50.1.1.1 0.0.0.0
  quit
  quit
+
+commit
 
 display ospf peer brief
 ```
@@ -576,6 +596,8 @@ ip pool VLAN112
 interface g0/0/0
  dhcp select global
  quit
+
+commit
 ```
 
 ```shell
