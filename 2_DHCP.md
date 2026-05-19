@@ -13,8 +13,11 @@
 ### Құрылғының атауын (Device Hostname) өзгерту
 ```shell
 $ sudo hostnamectl set-hostname dhcp
+
 $ sudo nano /etc/hosts
 127.0.1.1  dhcp
+CTRL+O, ENTER, CTRL+X
+
 $ bash
 ```
 
