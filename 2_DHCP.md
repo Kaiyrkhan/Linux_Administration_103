@@ -131,7 +131,7 @@ $ sudo dhcpd -t
 $ cat /var/lib/dhcp/dhcpd.leases
 ```
 
-### Configure DHCP Relay Agent
+### DHCP Relay Agent құрылғыны конфигурациялау
 
 ```shell
 # D1 and D2 Switch
@@ -145,25 +145,31 @@ Link: [Configure DHCP Relay Agent (for PNETLab Environment)](1_EnterpriseNetwork
 ### Нәтижені тексеру
 
 ```shell
-Debain
+H1 - Debain
 student@h1:~$ ip address
 student@h1:~$ sudo dhclient -v ens3
 
 student@h1:~$ ip address
 student@h1:~$ ip route
 student@h1:~$ cat /etc/resolv.conf
+```
 
-Ubuntu
+```shell
+H2 - Ubuntu
 student@h2:~$ ip address
 student@h2:~$ ip route
 student@h2:~$ resolvectl status
+```
 
-Rocky
+```shell
+H3 - Rocky
 student@h3:~$ ip address
 student@h3:~$ ip route
 student@h3:~$ cat /etc/resolv.conf
+```
 
-openEuler
+```shell
+H4 - openEuler
 student@h4:~$ ip address
 student@h4:~$ ip route
 student@h4:~$ cat /etc/resolv.conf
