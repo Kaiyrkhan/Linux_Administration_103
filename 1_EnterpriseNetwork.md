@@ -1,7 +1,7 @@
 # Huawei-Based Enterprise Network Design and Implementation / Huawei құрылғылары негізінде корпоративті желіні жобалау және конфигурациялау
 
 ### Network Topology
-![Topology Enterprise Network Design](images/Topology_PNETLab_EnterpriseNetworkDesign_HQ1_v1_Huawei.png)
+![Topology Enterprise Network Design](images/Topology_EnterpriseNetworkDesign_Huawei_HQ1_v1.png)
 [Download Link for PNETLab Topology File](Topology/Topology_EnterpriseNetworkDesign_Huawei_HQ1_v1.zip)
 
 | Device         | Role                                   |
