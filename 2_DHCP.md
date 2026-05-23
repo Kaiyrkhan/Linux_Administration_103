@@ -11,7 +11,7 @@
 3) install DHCP Package;
 4) Configure DHCP Server;
 5) Configure DHCP Relay Agent;
-6) Verify Configuration.
+6) Verify IP Address Assignment.
 
 ### Configure Device Hostname
 
