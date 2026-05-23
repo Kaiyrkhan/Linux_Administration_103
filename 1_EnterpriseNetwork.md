@@ -567,6 +567,10 @@ display ospf peer brief
 
 ## Step 7 – Configure DHCP Server
 
+**Configure DHCP Server on Linux**
+
+Link: [Configure DHCP Server on Linux](2_DHCP.md)  
+
 **Configure DHCP Server on Huawei VRP**
 
 ```shell
@@ -601,10 +605,6 @@ interface g0/0/0
 display ip pool
 display dhcp server statistics
 ```
-
-**Configure DHCP Server on Linux**
-
-Link: [Configure DHCP Server on Linux](2_DHCP.md)  
 
 ## Step 8 – Configure DHCP Relay Agent (for PNETLab Environment)
 
@@ -653,7 +653,7 @@ interface vlanif 112
 commit
 ```
 
-**Verify IP Address Assignment**
+## Step 9 – Verify IP Address Assignment
 
 ```shell
 # H1 (Debain)
@@ -699,7 +699,7 @@ student@h4:~$ sudo systemctl restart NetworkManager
 student@dhcp:~$ cat /var/lib/dhcp/dhcpd.leases
 ```
 
-## Step 9 – Configure NAT (Easy IP)
+## Step 10 – Configure NAT (Easy IP)
 
 **EdgeR1**
 
