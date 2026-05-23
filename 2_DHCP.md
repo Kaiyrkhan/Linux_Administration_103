@@ -12,12 +12,12 @@
 ## Configure DHCP Server on Debian
 
 #### Scenario
-1) Configure Device Hostname;
-2) Configure Network interface;
-3) install DHCP Package;
-4) Configure DHCP Server;
-5) Configure DHCP Relay Agent;
-6) Verify IP Address Assignment.
+  1) Configure Device Hostname;
+  2) Configure Network interface;
+  3) install DHCP Package;
+  4) Configure DHCP Server;
+  5) Configure DHCP Relay Agent;
+  6) Verify IP Address Assignment.
 
 #### Step 1 - Configure Device Hostname
 
