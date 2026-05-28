@@ -325,17 +325,20 @@ interface vlanif 111
  ip address 172.16.111.1 24
  vrrp vrid 1 virtual-ip 172.16.111.254
  vrrp vrid 1 priority 105
+ vrrp vrid 1 authentication-mode md5 Key@123
  quit
 
 interface vlanif 112
  ip address 172.16.112.1 24
  vrrp vrid 2 virtual-ip 172.16.112.254
+ vrrp vrid 1 authentication-mode md5 Key@123
  quit
 
 interface vlanif 50
  ip address 10.1.50.1 24
  vrrp vrid 50 virtual-ip 10.1.50.254
  vrrp vrid 50 priority 105
+ vrrp vrid 1 authentication-mode md5 Key@123
  quit
 
 commit
@@ -350,17 +353,20 @@ display vrrp
 interface vlanif 111
  ip address 172.16.111.2 24
  vrrp vrid 1 virtual-ip 172.16.111.254
+ vrrp vrid 1 authentication-mode md5 Key@123
  quit
 
 interface vlanif 112
  ip address 172.16.112.2 24
  vrrp vrid 2 virtual-ip 172.16.112.254
  vrrp vrid 2 priority 105
+ vrrp vrid 1 authentication-mode md5 Key@123
  quit
 
 interface vlanif 50
  ip address 10.1.50.2 24
  vrrp vrid 50 virtual-ip 10.1.50.254
+ vrrp vrid 1 authentication-mode md5 Key@123
  quit
 
 commit
