@@ -7,7 +7,7 @@
   5) Configure DHCP Server on Oracle 7.9.
 
 ### Network Topology
-![Topology Enterprise Network Design](images/Topology_EnterpriseNetworkDesign_Huawei_HQ_v1.png)  
+![Topology Enterprise Network Design](images/Topology_EnterpriseNetworkDesign_Huawei_v1.png)  
 
 ## Configure DHCP Server on Debian
 
